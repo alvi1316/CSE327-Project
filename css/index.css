@@ -1,0 +1,39 @@
+body{
+    background: url("../image/background/loginbackground.png") no-repeat center center fixed;
+    background-size: cover;
+}
+.modal-container{
+    margin: 0 auto;
+    
+}
+.modal-content{
+    background: rgba(0, 0, 0, .93);
+    padding-bottom: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.user-img{
+    margin-top: -50px;
+}
+img{
+    border-radius: 50%;
+}
+
+.modal-body{
+    color: white;
+}
+small{
+    color: red;
+}
+button{
+    width: 80%;
+}
+
+a{
+    color: white;
+    font-size: 12px;
+    
+}
+a:hover{
+    color: red;
+}
