@@ -37,3 +37,33 @@ a{
 a:hover{
     color: red;
 }
+input[type=text]{
+    border-width: 2px;
+}
+input[type=email]{
+    border-width: 2px;
+}
+input[type=password]{
+    border-width: 2px;
+}
+input.valid{
+    border-color: green;
+}
+input.invalid{
+    border-color: red;
+}
+input + p{
+    font-family: arial;
+    font-size: 10px;
+    font-weight: bold;
+    margin: 0 10px;
+    color:red;
+    opacity: 0;
+    height: 0;
+} 
+input.invalid + p{
+    opacity: 1;
+    height: auto;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}

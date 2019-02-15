@@ -25,16 +25,19 @@
                         <div class="form-group">
                             <label for="username">Username</label>
                             <input type="text" class="form-control" id="username"  placeholder="Enter username">
+                            <p>Username must be between 6 - 12 charecters</p>
                         </div>
                         <div class="form-group">
                             <label for="email">Email address</label>
                             <input type="email" class="form-control" id="email"  placeholder="Enter email">
+                            <p>Provide a proper email (EX:username@domain.example)</p>
                             
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" class="form-control" id="password" placeholder="Password">
-                            <!-- For js genarated warning for from requrement and php generated warning -->
+                            <p>Password must be between 6 - 12 charecters</p>
+                            <!-- For php generated warning -->
                             <small>Warning</small>
                             
                         </div>
@@ -49,6 +52,9 @@
     </div>
 
 
+
+    <!--My JavaScript-->
+    <script type="text/JavaScript" src="js/validation.js"></script>
 
 
 
