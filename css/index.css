@@ -67,3 +67,36 @@ input.invalid + p{
     margin-top: 5px;
     margin-bottom: 10px;
 }
+#signuppic{
+    border-style: solid;
+    border-width: 2px;
+}
+#signuppic:hover{
+    border-color: red;
+}
+#choose_pic_div{
+    visibility: hidden;
+    background-color: rgba(0, 0, 0, 0.95);
+
+    top: 0;
+    height: 300px;
+    position: absolute;
+    z-index: 0; 
+
+    overflow: auto;
+    overflow-x: hidden; 
+
+    
+}
+.avatar_choose{
+    width: 100px;
+    height: 100px;
+    margin: 0;
+    margin: auto;
+}
+.avatar_choose:hover{
+    border:1px solid;
+    border-color:red;
+     
+}
+

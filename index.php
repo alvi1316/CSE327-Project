@@ -1,3 +1,6 @@
+<?php
+    include "signinprocess.php";
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -7,6 +10,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- My CSS LINK -->
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <title>Login</title>
   </head>
@@ -15,26 +19,30 @@
     <div class="modal-dialog modal-dialog-centered text-center">
         <div class="col-sm-8 modal-container">
             <div class="modal-content">
-               
+
                 <div class="col-12 user-img">
-                    <img src="image/avatar/smoke.png" width="100" height="100">
+                    <img src="image/avatar/noimg2.png" width="100" height="100">
                 </div>
-                
+
                 <div class="modal-body">
-                    <form>
+                    <form action="index.php" method="post">
                         <div class="form-group">
-                            <label for="email">Email address</label>
-                            <input type="email" class="form-control" id="email"  placeholder="Enter email">
-                            
+                            <label for="email">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username">
+
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Password">
-                            <!-- For js genarated warning for wrong password -->
-                            <small>Warning</small>
-                            
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                            <!-- For php genarated warning for wrong password -->
+                            <small>
+                                <?php
+                                    echo $error;
+                                ?>
+                            </small>
+
                         </div>
-                        <button type="submit" class="btn btn-outline-danger">Login</button>
+                        <button type="submit" name="signin" class="btn btn-outline-danger">Sign In</button>
                         </div class="form-group">
                             <a href="#">Forgot password?</a>
                             <a href="signup.php">Create account</a>

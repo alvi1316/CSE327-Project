@@ -1,0 +1,51 @@
+body{
+  background: url("../image/background/feedbackground.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+.navbar-text{
+  margin-left: 5px;
+  margin-right: 5px;
+}
+a.nav-link:hover{
+  cursor: pointer;
+}
+#userImage{
+  border-radius: 50%;
+}
+#row1{
+  margin-bottom: 20px;
+}
+div.tabcol{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin: 0px;
+  border-style: solid;
+  border-color: #aeaeae;
+}
+#container1{
+  margin-top: 200px;
+  margin-bottom: 200px;
+  padding-top: 1px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+#profilePic{
+  margin-top: -100px;
+  border-style: solid;
+  border-width: 5px;
+}
+#profilePic:hover{
+  cursor: pointer;
+  border-color: skyblue;
+}
+div.tabcol:hover{
+  color: black;
+  background: #ff9500;
+  cursor: pointer;
+}
+
+#postdiv{
+  padding: 10px;
+}
+
+
