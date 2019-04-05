@@ -13,7 +13,9 @@
         $bool=true;
         if ($db->isValidLogin($con,$username,$password)){
             $_SESSION['username']=$username;
-            header('Location:profile.php');
+            $row = $db->userInformation($con,$username);
+            $_SESSION['dp'] = $row['dp'];
+            header('Location:newsfeed.php');
             die();
         }else{
             $error = $error."Wrong username or password";

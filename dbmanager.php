@@ -27,8 +27,8 @@
         //This function checks unique Username
         function isUniqueUsername($con,$username){
             $qry = "SELECT * FROM epiz_23119201_data.user WHERE username = '$username'";
-            $result=$con->query($qry);
-            if($result->num_rows>0){
+            $row=$con->query($qry);
+            if($row->num_rows>0){
                 return FALSE;
             }else{
                 return TRUE;
@@ -38,8 +38,8 @@
         //This function checks unique Email
         function isUniquePassword($con,$email){
             $qry = "SELECT * FROM epiz_23119201_data.user WHERE email = '$email'";
-            $result=$con->query($qry);
-            if($result->num_rows>0){
+            $row=$con->query($qry);
+            if($row->num_rows>0){
                 return FALSE;
             }else{
                 return TRUE;
@@ -74,10 +74,84 @@
             return $row;
         }
 
+        //This function writes post data in post table
+        function writeUserPost($con,$username,$post){
+            $date = date("Y/m/d");
+            date_default_timezone_set("Asia/Dhaka");
+            $time=date("h:i:sa");
+            $likecount = 0;
+            $qry = "INSERT INTO epiz_23119201_data.posts (username,post,postdate,posttime,likecount) VALUES ('$username','$post','$date','$time','$likecount')";
+            $con->query($qry);
+        }
 
+        //This function writes like data in posts table and likes table
+        function writeLikeData($con,$username,$postid){
+            $qry1="UPDATE epiz_23119201_data.posts SET likecount = likecount + 1  WHERE postid = '$postid'";
+            $qry2="INSERT INTO epiz_23119201_data.likes (postid,username) VALUES('$postid','$username')";
+            $con->query($qry1);
+            $con->query($qry2);
+        }
+
+        //This function deletes like data from posts table and likes table
+        function deleteLikeData($con,$username,$postid){
+            $qry1="UPDATE epiz_23119201_data.posts SET likecount = likecount - 1  WHERE postid = '$postid'";
+            $qry2="DELETE FROM epiz_23119201_data.likes WHERE postid = '$postid'";
+            $con->query($qry1);
+            $con->query($qry2);
+        }
+
+        //This function checks if user liked the post or not
+        function isLiked($con,$username,$postid){
+            $qry = "SELECT * FROM epiz_23119201_data.likes where postid = '$postid' AND username = '$username'";
+            $row = $con->query($qry);
+            if($row->num_rows>0){
+                return TRUE;
+            }else{
+                return FALSE;
+            }
+        }
+
+        //This function searches users form user table
+        function searchUsers($con,$searchUsername){
+            $qry = "SELECT * FROM epiz_23119201_data.user WHERE username LIKE '%$searchUsername%'";
+            $result = $con->query($qry);
+            $row = $result->fetch_all();
+            return $row;
+        }
+
+        //This function writes sent friend request to friends table
+        function sendFriendRequest($con,$sender,$receiver){
+            $qry = "INSERT INTO epiz_23119201_data.friends(firstuser, seconduser, degree) VALUES ('$sender','$receiver',0)";
+            $con->query($qry);
+        }
+
+        //This function writes accept friend request to friends table
+        function acceptFriendRequest($con,$sender,$receiver){
+            $qry = "UPDATE epiz_23119201_data.friends SET degree = 1 WHERE firstuser='$sender' AND seconduser = '$receiver'";
+            $con->query($qry);
+        }
+
+        //This function searches all friends of users from friends table
+        function searchAllFriends($con,$username){
+            $qry = "SELECT CASE WHEN (firstuser='deadhead1316' AND degree=1) THEN seconduser WHEN(seconduser='deadhead1316' AND degree=1) THEN firstuser END FROM epiz_23119201_data.friends";
+            $result = $con->query($qry);
+            $row = $result->fetch_all();
+            return $row;
+        }
+
+        //This function checks if user is friends with other user
+        function  searchFriendRequestStatus($con,$username,$otheruser){
+            $qry = "SELECT degree FROM epiz_23119201_data.friends WHERE (firstuser='$username' AND seconduser = '$otheruser') OR (firstuser = '$otheruser' AND seconduser = '$username')";
+            $result = $con->query($qry);
+            $row=$result->fetch_all();
+            if(count($row)==0){
+                return -1;
+            }elseif ($row[0][0]==0){
+                return 0;
+            }else{
+                return 1;
+            }
+        }
     }
-
-
-
 
 ?>

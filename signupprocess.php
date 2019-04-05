@@ -26,7 +26,8 @@
                 $db->signupInsertData($con, $username, $password, $email, $dp);
                 echo "wow";
                 $_SESSION['username'] = $username;
-                header("Location:profile.php");
+                $_SESSION['dp'] = $dp;
+                header("Location: newsfeed.php");
                 die();
             }
         }else{

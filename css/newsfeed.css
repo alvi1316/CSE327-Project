@@ -57,9 +57,13 @@ div.postcontent{
     top: 20px;
     border: solid 2px;
 }
-#post{
+#userpost{
     height: 80px;
 }
 #friendlistdiv{
     margin-top: 20px;
+}
+#friendlist{
+    height: 600px;
+    overflow: auto;
 }

@@ -3,12 +3,20 @@
     if(isset($_SESSION['username'])){
         include 'dbmanager.php';
         $username = $_SESSION["username"];
+        $dp = $_SESSION['dp'];
         $db = new dbmanager;
         $con=$db->dbConnection();
-        $userinfo = $db->userInformation($con,$username);
-        $dp = $userinfo['dp'];
         $row = $db->readUserPost($con,$username);
-
+        if(isset($_POST['liked']) && $_POST['liked']){
+            $postid = $_POST['postid'];
+            $db->writeLikeData($con,$username,$postid);
+            $_POST['liked'] = FALSE;
+        }
+        if(isset($_POST['unliked']) && $_POST['unliked']){
+            $postid = $_POST['postid'];
+            $db->deleteLikeData($con,$username,$postid);
+            $_POST['unliked'] = FALSE;
+        }
     }else{
         header('Location:index.php');
         die();

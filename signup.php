@@ -42,7 +42,7 @@
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-                            <p>Password must be between 6 - 12 charecters</p>
+                            <p>Password must be between 8 - 20 charecters</p>
                             <!-- For php generated warning -->
                             <small>
                                 <?php

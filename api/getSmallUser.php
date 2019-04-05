@@ -36,10 +36,10 @@ $notFound = [];
 
 function printName($uid)
 {
-	global $uapi, $data, $id, $platform, $notFound;
+	global $uapi, $data, $platform, $notFound;
 	$su = $uapi->searchUser("byid", $uid, $platform);
 	if ($su["error"] != true) {
-		$data[strtolower($su['nick'])] = array(
+		$data[] = array(
 			"profile_id" => $su['uid'],
 			"nickname" => $su['nick']
 		);
@@ -55,10 +55,10 @@ function printName($uid)
 
 function printID($name)
 {
-	global $uapi, $data, $id, $platform, $notFound;
+	global $uapi, $data, $platform, $notFound;
 	$su = $uapi->searchUser("bynick", $name, $platform);
 	if ($su["error"] != true) {
-		$data[strtolower($su['nick'])] = array(
+		$data[] = array(
 			"profile_id" => $su['uid'],
 			"nickname" => $su['nick']
 		);

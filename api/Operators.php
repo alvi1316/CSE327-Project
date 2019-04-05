@@ -26,9 +26,14 @@ foreach ($json as $name => $operator) {
 	$arr_result->$name->images->badge = $operator["badge"];
 	$arr_result->$name->images->figure = $operator["figure"];
 	$arr_result->$name->images->mask = $operator["mask"];
-	$arr_result->$name->stats->pvp = $operator["uniqueStatistic"]["pvp"]["statisticId"];
-	$arr_result->$name->stats->pve = $operator["uniqueStatistic"]["pve"]["statisticId"];
+	if(isset($operator["uniqueStatistic"]["pvp"])){
+        $arr_result->$name->stats->pvp = $operator["uniqueStatistic"]["pvp"]["statisticId"];
+        $arr_result->$name->stats->pve = $operator["uniqueStatistic"]["pve"]["statisticId"];
+    }
+
+
 }
+
 
 $operators_string = json_encode($arr_result, JSON_UNESCAPED_SLASHES);
 
