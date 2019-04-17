@@ -13,9 +13,9 @@
             }
         }
 
-        //This function inserts userdata inside
+        //This function inserts userdata inside user table
         function signupInsertData($conn,$username,$password,$email,$dp){
-            $qry = "INSERT INTO epiz_23119201_data.user (username,password,email,dp) VALUES ('$username','$password','$email','$dp')";
+            $qry = "INSERT INTO epiz_23119201_data.user (username,password,email,dp,uplayname) VALUES ('$username','$password','$email','$dp','NULL')";
             if($conn->query($qry)===TRUE){
                 return TRUE;
             }else{
@@ -133,7 +133,7 @@
 
         //This function searches all friends of users from friends table
         function searchAllFriends($con,$username){
-            $qry = "SELECT CASE WHEN (firstuser='deadhead1316' AND degree=1) THEN seconduser WHEN(seconduser='deadhead1316' AND degree=1) THEN firstuser END FROM epiz_23119201_data.friends";
+            $qry = "SELECT CASE WHEN (firstuser='$username' AND degree=1) THEN seconduser WHEN(seconduser='$username' AND degree=1) THEN firstuser END FROM epiz_23119201_data.friends";
             $result = $con->query($qry);
             $row = $result->fetch_all();
             return $row;
@@ -151,6 +151,55 @@
             }else{
                 return 1;
             }
+        }
+
+        //This function deletes friend request from friends table
+        function deleteFriendRequest($con,$username,$otheruser){
+            $qry = "DELETE FROM epiz_23119201_data.friends WHERE (firstuser='$username' AND seconduser = '$otheruser') OR (firstuser = '$otheruser' AND seconduser = '$username')";
+            $con->query($qry);
+        }
+
+        //This function checks if user received request or not
+        function checkConfirmRequest($con,$username,$otheruser){
+            $qry = "SELECT * FROM epiz_23119201_data.friends WHERE firstuser = '$otheruser' AND seconduser = '$username' AND degree = 0";
+            $row = $con->query($qry);
+            if($row->num_rows>0){
+                return TRUE;
+            }else{
+                return FALSE;
+            }
+        }
+
+        //This function returns the posts of users friends
+        function readFriendPost($con,$username){
+            $qry = "SELECT * FROM epiz_23119201_data.posts,(SELECT (CASE WHEN(firstuser = '$username' AND degree = 1) THEN seconduser  WHEN(seconduser = '$username' AND degree = 1) THEN firstuser END)as friendlist FROM epiz_23119201_data.friends) as temp WHERE username = friendlist";
+            $result=$con->query($qry);
+            $row = $result->fetch_all();
+            return $row;
+        }
+
+        //This function returns post data
+        function postData($con,$id){
+            $qry = "SELECT * FROM epiz_23119201_data.posts where postid = $id ";
+            $result=$con->query($qry);
+            $row=$result->fetch_assoc();
+            return $row;
+        }
+        //This function writes post data in post table
+        function writeUserComment($con,$username,$id,$comment){
+            $date = date("Y/m/d");
+            date_default_timezone_set("Asia/Dhaka");
+            $time=date("h:i:sa");
+            $likecount = 0;
+            $qry = "INSERT INTO epiz_23119201_data.comments (postid,username,data,type,date,time) VALUES ('$id','$username','$comment','NULL','$date', '$time')";
+            $con->query($qry);
+        }
+        //This function returns comment data
+        function commentData($con,$id){
+            $qry = "SELECT * FROM epiz_23119201_data.comments where postid = $id ";
+            $result=$con->query($qry);
+            $row = $result->fetch_all();
+            return $row;
         }
     }
 

@@ -53,6 +53,7 @@
         </form>
 
         <!-- Link List -->
+        
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a href="newsfeed.php" class="nav-link">Newsfeed</a>

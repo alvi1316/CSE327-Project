@@ -11,6 +11,31 @@
         $con = $db->dbConnection();
         $details = $db->userInformation($con,$searchuser);
         $friendStatus = $db->searchFriendRequestStatus($con,$username,$searchuser);
+        if(isset($_POST['unfriend'])){
+            if($_POST['unfriend']==1){
+                $db->deleteFriendRequest($con,$username,$searchuser);
+            }
+        }
+        if(isset($_POST['request'])){
+            if($_POST['request']==0){
+                $db->sendFriendRequest($con,$username,$searchuser);
+            }elseif ($_POST['request']==-1){
+                $db->deleteFriendRequest($con,$username,$searchuser);
+            }elseif($_POST['request']==1){
+                $db->acceptFriendRequest($con,$searchuser,$username);
+            }
+
+        }
+        if(isset($_POST['liked']) && $_POST['liked']){
+            $postid = $_POST['postid'];
+            $db->writeLikeData($con,$username,$postid);
+            $_POST['liked'] = FALSE;
+        }
+        if(isset($_POST['unliked']) && $_POST['unliked']){
+            $postid = $_POST['postid'];
+            $db->deleteLikeData($con,$username,$postid);
+            $_POST['unliked'] = FALSE;
+        }
         if($friendStatus==1){
           $isFriend=true;
           $searchuserpost=$db->readUserPost($con,$searchuser);
@@ -111,12 +136,19 @@
         <div class="row">
             <?php
                 if($isFriend){
-                    echo "<div class=\"col text-center tabcol\">Pictures</div>";
-                    echo "<div onclick=\"redirectMyProfile()\" class=\"col text-center tabcol\">Profile</div>";
+                    echo "<div class=\"col text-center tabcol unfriend\">Unfriend</div>";
+                    echo "<div class=\"col text-center tabcol\">Profile</div>";
+                    $row = $db->readUserPost($con,$searchuser);
                 }elseif (!$requestSent){
                     echo "<div class=\"col text-center tabcol send-request\">Send Request</div>";
                 }elseif($requestSent){
-                    echo "<div class=\"col text-center tabcol\">Friend Request Sent</div>";
+                    //if i send then confirm else cancel-request
+                    if($db->checkConfirmRequest($con,$username,$searchuser)) {
+                        echo "<div class=\"col text-center tabcol confirm-request\">Confirm Request</div>";
+                    }else{
+                        echo "<div class=\"col text-center tabcol cancel-request\">Cancel Friend Request</div>";
+                    }
+
                 }
 
             ?>
@@ -138,7 +170,12 @@
               <h3><b>
                     <?php
                         if($isFriend){
-                            echo "Posts of ".$details['username'];
+                            if(count($row)==0){
+                                echo $details['username']." has no post";
+                            }else{
+                                echo "Posts of ".$details['username'];
+                            }
+
                         }
                     ?>
               </b></h3>
@@ -156,14 +193,94 @@
                 </div>";
             }
         ?>
+          <?php
+          if($isFriend){
+              for($i=0;$i<count($row);$i++){
+                  $indPost = "";
+                  if($db->isLiked($con,$username,$row[$i][0])){
+                      $indPost = "
 
+                        <!-- This is a indevidual post-->
+                        <div class=\"container-fluid indpost\">
+                
+                          <!-- Username and time -->
+                          <div class=\"row p-1\">
+                            <div class=\"col-sm-9 nametime\">
+                              <h5>".$row[$i][1]."</h5>
+                            </div>
+                            <div class=\"col-sm-3 nametime\">
+                              <small>Date: ".$row[$i][3]." Time: ".$row[$i][4]."</small>
+                            </div>
+                          </div>
+                          <!-- End of  username and time -->
+                
+                          <!-- Post content -->
+                          <div class=\"row p-1 postcontent\">
+                            <p>".$row[$i][2]."
+                            </p>
+                          </div>
+                          
+                          <!-- Buttons for like shere and comment -->
+                          <div class=\"row p-1\">
+                            <div class=\"col-xs-10\">
+                                <button  name=\"like\" class=\"btn btn-success ".$row[$i][0]." unlike\">Unlike</button>
+                                <button  name=\"comment\" class=\"btn btn-warning ".$row[$i][0]." comment\">Comment</button>
+                            </div>
+                          </div>
+                        
+                        </div>
+                        <!-- End of indi Post-->";
+
+
+                  }else{
+
+                      $indPost = "
+
+                        <!-- This is a indevidual post-->
+                        <div class=\"container-fluid indpost\">
+                
+                          <!-- Username and time -->
+                          <div class=\"row p-1\">
+                            <div class=\"col-sm-9 nametime\">
+                              <h5>".$row[$i][1]."</h5>
+                            </div>
+                            <div class=\"col-sm-3 nametime\">
+                              <small>Date: ".$row[$i][3]." Time: ".$row[$i][4]."</small>
+                            </div>
+                          </div>
+                          <!-- End of  username and time -->
+                
+                          <!-- Post content -->
+                          <div class=\"row p-1 postcontent\">
+                            <p>".$row[$i][2]."
+                            </p>
+                          </div>
+                          
+                          <!-- Buttons for like shere and comment -->
+                          <div class=\"row p-1\">
+                            <div class=\"col-xs-10\">
+                                <button  name=\"like\" class=\"btn btn-success ".$row[$i][0]." like\">Like</button>
+                                <button  name=\"comment\" class=\"btn btn-warning ".$row[$i][0]." comment\">Comment</button>
+                            </div>
+                          </div>
+                        
+                        </div>
+                        <!-- End of indi Post-->";
+
+                  }
+
+                  echo $indPost;
+              }
+          }
+
+          ?>
 
 
         
 
       
-      </div>
-      <!-- End of Post Div-->
+     </div>
+     <!-- End of Post Div-->
 
 
 

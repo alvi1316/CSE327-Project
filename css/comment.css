@@ -1,0 +1,71 @@
+body{
+    background: url("../image/background/feedbackground.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+.navbar-text{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+a.nav-link:hover{
+    cursor: pointer;
+}
+#userImage{
+    border-radius: 50%;
+}
+#row1{
+    margin-bottom: 20px;
+}
+div.tabcol{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 0px;
+    border-style: solid;
+    border-color: #aeaeae;
+}
+#container1{
+    margin-top: 30px;
+    margin-bottom: 200px;
+    padding-top: 1px;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+
+div.nametime{
+    padding: 0px;
+}
+
+#postdiv{
+    padding: 10px;
+}
+
+div.indpost{
+    border-style: solid;
+    border-color: #aeaeae;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+div.postcontent{
+    border-style: solid;
+    border-color: #aeaeae;
+    border-right: 0px;
+    border-left: 0px;
+}
+
+#postcontainer{
+    top: 20px;
+    border: solid 2px;
+}
+#usercomment{
+    height: 50px;
+}
+div.comment{
+    border-style: solid;
+    border-color: #aeaeae;
+}
+div.commentheader{
+    border-style: solid;
+    border-color: #aeaeae;
+    border-bottom: 0px;
+}

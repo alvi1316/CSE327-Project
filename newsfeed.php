@@ -47,13 +47,18 @@
       <div class="collapse navbar-collapse" id="target">
 
         <!-- Search Bar and Search button -->
-        <form class="form-inline ml-auto" action="searchusers.php" method="post">
+        <form class="form-inline ml-auto" action="searchusers.php" method="get">
           <input class="form-control mr-sm-2" name="searchkey" type="search" placeholder="Search" aria-label="Search">
           <button type="btn btn-light my-sm-0" type="submit">Search</button>
         </form>
 
         <!-- Link List -->
         <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a href="newsfeed.php" class="nav-link">Pending request</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
           <li class="nav-item">
             <a href="newsfeed.php" class="nav-link">NewsFeed</a>
           </li>
@@ -95,40 +100,6 @@
           <div class="col-12 mb-2 mt-2">
             <a class="text-light" href="">Username</a>
           </div>
-          <div class="col-12 mb-2 mt-2">
-            <a class="text-light" href="">Username</a>
-          </div>
-          <div class="col-12 mb-2 mt-2">
-            <a class="text-light" href="">Username</a>
-          </div>
-          <div class="col-12 mb-2 mt-2">
-            <a class="text-light" href="">Username</a>
-          </div>
-          <div class="col-12 mb-2 mt-2">
-            <a class="text-light" href="">Username</a>
-          </div>
-          <div class="col-12 mb-2 mt-2">
-            <a class="text-light" href="">Username</a>
-          </div>
-          <div class="col-12 mb-2 mt-2">
-            <a class="text-light" href="">Username</a>
-          </div>
-          <div class="col-12 mb-2 mt-2">
-            <a class="text-light" href="">Username</a>
-          </div>
-          <div class="col-12 mb-2 mt-2">
-            <a class="text-light" href="">Username</a>
-          </div>
-          <div class="col-12 mb-2 mt-2">
-            <a class="text-light" href="">Username</a>
-          </div>
-          <div class="col-12 mb-2 mt-2">
-            <a class="text-light" href="">Username</a>
-          </div>
-          <div class="col-12 mb-2 mt-2">
-            <a class="text-light" href="">Username</a>
-          </div>
-
         </div>
 
       </div>
@@ -175,46 +146,88 @@
         </div>
 
         <!-- This is a indevidual post-->
-        <div class="container-fluid indpost">
 
-          <!-- Username and time -->
-          <div class="row p-1">
-            <div class="col-sm-9 nametime">
-              <h5>Username</h5>
-            </div>
-            <div class="col-sm-3 nametime">
-              <small>Date and Time</small>
-            </div>
-          </div>
-          <!-- End of  username and time -->
-
-          <!-- Post content -->
-          <div class="row p-1 postcontent">
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero cumque aliquid eaque voluptas, ipsam sunt molestiae 
-            incidunt odio itaque expedita, ad accusamus reprehenderit consectetur error doloremque quam repellendus necessitatibus! 
-            Rerum?</p>
-          </div>
           
-          <!-- Buttons for like shere and comment -->
-          <div class="row p-1">
-            <div class="col-xs-10">
-              <form action="">
-                <button type="submit" class="btn btn-success">Like</button>
-                <button type="submit" class="btn btn-primary ">Share</button>
-                <button type="submit" class="btn btn-warning">Comment</button>
-              </form>
-            </div>
-            <div class="col-xs-2 ml-auto">
-              <form action="">
-                <input type="hidden" name="postid" id="postid" value="">
-                <button type="submit" class = "btn btn-danger ">Delete Post</button>
-              </form>
-            </div>
-          </div>
-          
-        </div>
-        <!-- End of indi Post-->
+    </div>
+    <!-- End of indi Post-->
+        <?php
+        for($i=0;$i<count($feedrow);$i++){
+            $indPost = "";
+            if($db->isLiked($con,$username,$feedrow[$i][0])){
+                $indPost = "
 
+                        <!-- This is a indevidual post-->
+                        <div class=\"container-fluid indpost\">
+                
+                          <!-- Username and time -->
+                          <div class=\"row p-1\">
+                            <div class=\"col-sm-9 nametime\">
+                              <h5>".$feedrow[$i][1]."</h5>
+                            </div>
+                            <div class=\"col-sm-3 nametime\">
+                              <small>Date: ".$feedrow[$i][3]." Time: ".$feedrow[$i][4]."</small>
+                            </div>
+                          </div>
+                          <!-- End of  username and time -->
+                
+                          <!-- Post content -->
+                          <div class=\"row p-1 postcontent\">
+                            <p>".$feedrow[$i][2]."
+                            </p>
+                          </div>
+                          
+                          <!-- Buttons for like shere and comment -->
+                          <div class=\"row p-1\">
+                            <div class=\"col-xs-10\">
+                                <button  name=\"like\" class=\"btn btn-success ".$feedrow[$i][0]." unlike\">Unlike</button>
+                                <button  name=\"comment\" class=\"btn btn-warning ".$feedrow[$i][0]." comment\">Comment</button>
+                            </div>
+                          </div>
+                        
+                        </div>
+                        <!-- End of indi Post-->";
+
+
+            }else{
+
+                $indPost = "
+
+                        <!-- This is a indevidual post-->
+                        <div class=\"container-fluid indpost\">
+                
+                          <!-- Username and time -->
+                          <div class=\"row p-1\">
+                            <div class=\"col-sm-9 nametime\">
+                              <h5>".$feedrow[$i][1]."</h5>
+                            </div>
+                            <div class=\"col-sm-3 nametime\">
+                              <small>Date: ".$feedrow[$i][3]." Time: ".$feedrow[$i][4]."</small>
+                            </div>
+                          </div>
+                          <!-- End of  username and time -->
+                
+                          <!-- Post content -->
+                          <div class=\"row p-1 postcontent\">
+                            <p>".$feedrow[$i][2]."
+                            </p>
+                          </div>
+                          
+                          <!-- Buttons for like shere and comment -->
+                          <div class=\"row p-1\">
+                            <div class=\"col-xs-10\">
+                                <button  name=\"like\" class=\"btn btn-success ".$feedrow[$i][0]." like\">Like</button>
+                                <button  name=\"comment\" class=\"btn btn-warning ".$feedrow[$i][0]." comment\">Comment</button>
+                            </div>
+                          </div>
+                        
+                        </div>
+                        <!-- End of indi Post-->";
+
+            }
+
+            echo $indPost;
+        }
+        ?>
         
 
       
