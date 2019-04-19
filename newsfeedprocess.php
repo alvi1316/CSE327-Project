@@ -8,6 +8,7 @@
         $db = new dbmanager();
         $con=$db->dbConnection();
         $feedrow=$db->readFriendPost($con,$username);
+        $friendList=$db->searchAllFriends($con,$username);
         $row=$db->userInformation($con,$username);
         $dp=$row['dp'];
         $_SESSION['dp']=$row['dp'];

@@ -39,7 +39,20 @@ $(document).ready(function(){
         });
     });
 
-
+    //when the user clicks on delete
+    $(document).on('click','.delete',function(){
+        console.log("Hello!");
+        var id = parseInt($(this).attr('class').replace(/\D/g,''),10); //Gets the id of the post
+        $.ajax({
+            url: 'profileprocess.php',
+            type: 'post',
+            data: {
+                'delete' : true,
+                'postid' : id
+            }
+        });
+        location.reload();
+    });
 
 
 });

@@ -197,9 +197,14 @@
         //This function returns comment data
         function commentData($con,$id){
             $qry = "SELECT * FROM epiz_23119201_data.comments where postid = $id ";
-            $result=$con->query($qry);
+            $result = $con->query($qry);
             $row = $result->fetch_all();
             return $row;
+        }
+        //This function deletes post
+        function deletePost($con,$postid){
+            $qry = "DELETE FROM epiz_23119201_data.posts WHERE postid = '$postid'";
+            $con->query($qry);
         }
     }
 

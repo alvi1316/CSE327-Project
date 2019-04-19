@@ -97,9 +97,13 @@
         </div>
 
         <div class="row border border-danger" id="friendlist">
-          <div class="col-12 mb-2 mt-2">
-            <a class="text-light" href="">Username</a>
-          </div>
+          <?php
+            for($i=0;$i<count($friendList);$i++){
+                echo    "<div class=\"col-12 mb-2 mt-2\">
+                        <a class=\"text-light\" href=\"\">".$friendList[$i][0]."</a>
+                        </div>";
+            }
+          ?>
         </div>
 
       </div>

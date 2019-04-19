@@ -17,6 +17,10 @@
             $db->deleteLikeData($con,$username,$postid);
             $_POST['unliked'] = FALSE;
         }
+        if(isset($_POST['delete'])){
+            $postid = $_POST['postid'];
+            $db->deletePost($con,$postid);
+        }
     }else{
         header('Location:index.php');
         die();

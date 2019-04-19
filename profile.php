@@ -161,7 +161,7 @@
                                 <button  name=\"comment\" class=\"btn btn-warning ".$row[$i][0]." comment\">Comment</button>
                             </div>
                             <div class=\"col-xs-2 ml-auto\">
-                               <button name=\"deletepost\" class = \"btn btn-danger ".$row[$i][0]." delete".$row[$i][0]."\">Delete Post</button>
+                               <button name=\"deletepost\" class = \"btn btn-danger ".$row[$i][0]." delete\">Delete Post</button>
                             </div>
                           </div>
                         
@@ -200,7 +200,7 @@
                                 <button  name=\"comment\" class=\"btn btn-warning ".$row[$i][0]." comment\">Comment</button>
                             </div>
                             <div class=\"col-xs-2 ml-auto\">
-                               <button name=\"deletepost\" class = \"btn btn-danger ".$row[$i][0]." delete".$row[$i][0]."\">Delete Post</button>
+                               <button name=\"deletepost\" class = \"btn btn-danger ".$row[$i][0]." delete \">Delete Post</button>
                             </div>
                           </div>
                         
